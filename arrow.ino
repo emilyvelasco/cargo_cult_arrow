@@ -1,29 +1,6 @@
-/*
-  Blink
-
-  Turns an LED on for one second, then off for one second, repeatedly.
-
-  Most Arduinos have an on-board LED you can control. On the UNO, MEGA and ZERO
-  it is attached to digital pin 13, on MKR1000 on pin 6. LED_BUILTIN is set to
-  the correct LED pin independent of which board is used.
-  If you want to know what pin the on-board LED is connected to on your Arduino
-  model, check the Technical Specs of your board at:
-  https://www.arduino.cc/en/Main/Products
-
-  modified 8 May 2014
-  by Scott Fitzgerald
-  modified 2 Sep 2016
-  by Arturo Guadalupi
-  modified 8 Sep 2016
-  by Colby Newman
-
-  This example code is in the public domain.
-
-  https://www.arduino.cc/en/Tutorial/BuiltInExamples/Blink
-*/
-int speedValue = 250;
-
-// the setup function runs once when you press reset or power the board
+/*This code runs an arrow sign with five LEDs, turning them on and off in a variety of sequences to simulate 
+ * an old-time lighted sign
+ */
 void setup() {
   // initialize digital pin LED_BUILTIN as an output.
   pinMode(3, OUTPUT);
@@ -34,12 +11,16 @@ void setup() {
   pinMode(11, OUTPUT);
 }
 
+/*The function clicker controls a small five-volt relay attached to the sign. 
+The relay simply exists to make clicking sounds, as would be present in a vintage
+sign of this type.*/
 void clicker(){
   digitalWrite(11, HIGH);
   delay(7);
   digitalWrite(11, LOW);
 }
 
+//turn on the lights one after another
 void chaser(){
 
    // fade in from min to max in increments of 5 points:
@@ -120,8 +101,9 @@ clicker();
 
 }
 
+//turn all the lights on at once and then turn them off again
 void flasher(){
-  delay(speedValue); 
+  delay(250); 
 clicker();
    // fade in from min to max in increments of 5 points:
   for (int fadeValue = 0 ; fadeValue <= 255; fadeValue += 5) {
@@ -134,7 +116,7 @@ clicker();
   }
  
   
-  delay(speedValue); 
+  delay(250); 
   clicker();// wait for a second
   for (int fadeValue = 255 ; fadeValue >= 0; fadeValue -= 5) {
     // sets the value (range from 0 to 255):
@@ -149,6 +131,7 @@ clicker();
  
 }
 
+//turn the lights on one at a time, but keep the previous light on. when all are on, turn all off
 void sequential(){
   delay(240);
     clicker();
@@ -203,7 +186,7 @@ clicker();
 
 }
 
-// the loop function runs over and over again forever
+// cycle through the various lighting sequences forever
 void loop() {
  chaser();
  chaser();
